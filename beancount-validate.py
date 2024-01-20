@@ -40,7 +40,7 @@ def main():
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Parses a beancount ledger and verifies rules about it"
+        description="Parses a beancount ledger and applies validation rules to it"
     )
 
     parser.add_argument(
