@@ -9,7 +9,6 @@ def main():
     args = parse_args()
 
     ledger_file_path_str = args.file_path
-    reexport_into_file = args.reexport_into_file
     ledger_file = Path(ledger_file_path_str)
 
     assert ledger_file.exists(), f"Provided ledger file path {ledger_file_path_str} not found"
@@ -30,11 +29,7 @@ def main():
 
         sys.exit(1)
 
-    if reexport_into_file:
-        with ledger_file.open(mode="w") as file:
-            printer.print_entries(entries, file=file)
-    else:
-        printer.print_entries(entries, file=sys.stdout)
+    printer.print_entries(entries, file=sys.stdout)
 
     print(f"Found {len(entries)} entries", file=sys.stderr)
 
@@ -46,14 +41,6 @@ def parse_args():
     parser.add_argument(
         "--file-path", "-f", required=True, help="Path to the beancount ledger file"
     )
-
-    parser.add_argument(
-        "--reexport-into-file",
-        "-r",
-        action="store_true",
-        help="Reexports input file after parsing for convencience",
-    )
-
 
     args = parser.parse_args()
     return args
